@@ -3,6 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const expressLayout = require('express-ejs-layouts');
 
+const connectDB = require('./server/config/db');    // Require the db configuration
+// connect to the database
+connectDB();
 
 const port = 8000;
 const app = express();
@@ -16,15 +19,11 @@ app.set('layout','./layouts/main');
 app.set('view engine', 'ejs');
 
 
+app.use('/', require('./server/routes/customer'));
 
-// Route Home
-app.get('/', (req, res) => {
-
-    const locals = {
-        title : "Node Js",
-        description : "User Management System"
-    }
-    res.render('index', locals);
+// Handle 404
+app.get('*', (req, res) => {
+    res.status(404).render('404');
 });
 
 
