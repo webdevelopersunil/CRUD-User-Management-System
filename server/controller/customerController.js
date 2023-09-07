@@ -53,6 +53,7 @@ exports.postCustomer = async (req, res) => {    //async function for database st
     try {
 
         await Customer.create(newCustomer);
+        
         res.redirect('/');
 
     } catch (err) {
